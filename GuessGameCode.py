@@ -1,5 +1,4 @@
 #Setup
-#Comment for testing commit and push!!!!!
 import random
 
 usedwords=set()
@@ -23,6 +22,7 @@ def getword():
 while wantplay==True:
 
     word=getword()
+    word = word.lower()
     while word in usedwords:        #check and fetch new words if used before
         word=getword()
     while len(word)>=6:
@@ -54,7 +54,7 @@ while wantplay==True:
                     print("You win")
                     Won+=1                               #adds win
                     numguess = numguess + (8-numguess)   #cancels anymore attempts after correct
-                    print(f'Num guesses = ',numguess)
+                    #print(f'Num guesses = ',numguess)
                     playagain = str(input('Do you want to play again (Y/N): '))
                     if playagain == 'N':
                         wantplay = False
@@ -69,6 +69,7 @@ while wantplay==True:
                 break
         print(output)
     print('Wins: ',Won, ' and Losses: ',Loss)
+    f'You are doing ok'
        
 
     
