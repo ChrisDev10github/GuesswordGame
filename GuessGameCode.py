@@ -9,11 +9,12 @@ Won = 0
 Loss=0
 
 #read words.txt file
-f = open('words.txt')
-dictionary = f.readlines().splitlines()
-f.close()
 
 def getword():
+    f = open(r'C:\Users\Chris\Documents\PythonCode\words.txt')
+    #dictionary = f.readlines().splitlines()
+    dictionary = f.read().split('\n')
+    f.close()
     return random.choice(dictionary)
 
 
@@ -23,6 +24,9 @@ while wantplay==True:
     word=getword()
     while word in usedwords:        #check and fetch new words if used before
         word=getword()
+    while len(word)>=6:
+        word=getword()
+    print(word)
     goal=list(word)
     usedwords.add(word)
     numguess = 0
@@ -32,7 +36,7 @@ while wantplay==True:
 
 
 #Individual Game work
-    while numguess <=7: 
+    while numguess <=7 and wantplay ==True: 
         guess = str(input('Enter a letter: '))
         numguess+=1
         print(numguess)
@@ -43,20 +47,29 @@ while wantplay==True:
              continue
 
         for i in range(0,len(goal)):
-              if goal[i]==guess:
-                    output[i] = guess
-                    if output == goal:
-                        print("You win")
-                        Won+=1                               #adds win
-                        numguess = numguess + (8-numguess)   #cancels anymore attempts after correct
-                        break
-                    if output != word and numguess == 6:
-                        print("You are bad")
-                        Loss+=1                              #adds loss
-                        break
+            if goal[i]==guess:
+                output[i] = guess
+                if output == goal:
+                    print("You win")
+                    Won+=1                               #adds win
+                    numguess = numguess + (8-numguess)   #cancels anymore attempts after correct
+                    print(f'Num guesses = ',numguess)
+                    playagain = str(input('Do you want to play again (Y/N): '))
+                    if playagain == 'N':
+                        wantplay = False
+                    break
+            if output != word and numguess == 8:
+                print("You are bad")
+                Loss+=1                              #adds loss
+                playagain = str(input('Do you want to play again (Y/N): '))
+                print(playagain)
+                if playagain == 'N':
+                    wantplay = False
+                break
         print(output)
-    print('Wins: '+Won+ ' and Losses: '+Loss)
-    playagain = str(input('Do you want to play again (Y/N): '))
-    if playagain == 'N':
-        wantplay = False
+    print('Wins: ',Won, ' and Losses: ',Loss)
+       
+
+    
+
 
